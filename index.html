@@ -11,9 +11,10 @@
 <h1 class="text-center pb-4 pt-4 ">Crush Phone</h1>
     <div class="container">
             <div class="d-flex w-50 mx-auto">
-                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                <button class="btn btn-outline-success" type="submit">Search</button>
+                <input id="search-box" class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                <button onclick="loadData()" class="btn btn-outline-success" type="submit">Search</button>
               </div>
+              <h2 class="text-center text-danger " id="error"></h2>
     </div>
 
 
