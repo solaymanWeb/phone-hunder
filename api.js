@@ -13,6 +13,7 @@ const searchData= (searchText)=>{
     if(searchText==''|| isNaN(searchText)==false){
         error.innerText='Please! enter phone name';
         products.innerHTML='';
+        showMore.innerHTML='';
     }
     else{
       const url = `https://openapi.programming-hero.com/api/phones?search=${searchText}`
@@ -27,6 +28,7 @@ const products = document.getElementById('products')
 //create element and dynamic show phone details
 const loadApi= (phones)=>{
   products.innerHTML='';
+  showMore.innerHTML='';
   // console.log(phones)
 
 for(const phone of phones){
@@ -40,8 +42,6 @@ for(const phone of phones){
         <h5 class="card-title">Brand: ${phone.brand}</h5>
         <h5 class="card-title"> model: ${phone.phone_name}</h5>
         <button onclick="seeMore('${phone.slug}')" class='btn btn-success' >See more</button>
-        
-        
       </div>
     </div>`
     products.appendChild(div);
@@ -54,79 +54,36 @@ error.innerText='';
 
 
 const seeMore = (id)=>{
-  console.log(id)
-  fetch
+  // console.log(id)
+  const url = `https://openapi.programming-hero.com/api/phone/${id}`
+  fetch(url)
+  .then(response => response.json())
+  .then(data =>showMoreDisplay(data.data))
 
 }
 
+//show more details
 
+const showMore= document.getElementById('show-more')
+const showMoreDisplay = (data) =>{
+// console.log(data)
+products.innerHTML='';
+const div = document.createElement('div')
+div.classList.add('w-50')
+div.classList.add('mx-auto')
+    div.innerHTML= `<div class="card" style="width: 18rem;">
+    <img src="${data.image}" class="card-img-top" alt="...">
+    <div class="card-body">
+      <h5 class="card-title">Brand: ${data.brand}</h5>
+      <h5 class="card-title"> model: ${data.name}</h5>
+      <p class="card-title"> Release Date: ${data.releaseDate}.</p>
+      <p class="card-title">Fingerprint: ${data.mainFeatures.sensors[0]}.</
+      </p>
+      <p class="card-title">storage: ${data.mainFeatures.memory}.</
+      </p>
+    </div>
+  </div>`
+  showMore.appendChild(div)
 
+}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// false code 
-
-
-// const searchOutput = document.getElementById('search-output')
-// const loadData= (cards)=>{
-//    // console.log(cards)
-//    for(const card of cards){
-//       // console.log(card)
-//       const div = document.createElement('div')
-//       div.classList.add('mb-5')
-//       div.classList.add('col-lg-4')
-//       div.innerHTML= `<div class="card" style="width: 18rem;">
-//       <img src="${card.image}" class="card-img-top" alt="...">
-//       <div class="card-body">
-//         <h5 class="card-title">${card.suit}</h5>
-//         <h4>${card.code}</h4>
-//         <p class="card-text"></p>
-//         <button onclick="seeMore('${card.code}')" class='btn btn-success'>See More</button>
-//       </div>
-//     </div>`
-
-//     searchOutput.appendChild(div)
-//    }
-   
-// }
-// const seeMore =(code)=>{
-//    // console.log(code)
-//    fetch(`https://deckofcardsapi.com/api/deck/new/draw/?count=52`)
-//    .then(response => response.json())
-//    .then(data => {
-//       // console.log(data.cards)
-//       const allCard= data.cards;
-//       const singleCard = allCard.find(card => card.code === code)
-
-//       const div = document.createElement('div')
-//       searchOutput.innerHTML='';
-//       div.classList.add('mb-5')
-//       div.classList.add('col')
-//       div.innerHTML = `<div class="card" style="width: 18rem;">
-//       <img src="${singleCard.image}" class="card-img-top" alt="...">
-//       <div class="card-body">
-//         <h5 class="card-title"> Brand : ${singleCard.suit}</h5>
-//         <h4>${singleCard.code}</h4>
-//         <p class="card-text"> value :${singleCard.value}</p>
-//       </div>
-//     </div>`
-//       searchOutput.appendChild(div)
-//       console.log(singleCard)
-//    })
-// }
