@@ -71,6 +71,7 @@ products.innerHTML='';
 const div = document.createElement('div')
 div.classList.add('w-50')
 div.classList.add('mx-auto')
+div.classList.add('mb-5')
     div.innerHTML= `<div class="card" style="width: 18rem;">
     <img src="${data.image}" class="card-img-top" alt="...">
     <div class="card-body">
@@ -80,6 +81,8 @@ div.classList.add('mx-auto')
       <p class="card-title">Fingerprint: ${data.mainFeatures.sensors[0]}.</
       </p>
       <p class="card-title">storage: ${data.mainFeatures.memory}.</
+      </p>
+      <p class="card-title">Display size: ${data.mainFeatures.displaySize}.</
       </p>
     </div>
   </div>`
